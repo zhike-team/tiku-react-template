@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Language" content="zh-CN" />
+  <meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin :0;
+      padding: 0;
+      color: #333333;
+      font-family: 'WenQuanYi Micro Hei', 'Microsoft Yahei', 'PingFang SC', sans-serif, Arial, Verdana;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="text/javascript" src="/sa.js"></script>
+  <script type="text/javascript">
+    window.onload = function(){
+      // 去掉Safari 插件的占位
+      var xunlei = document.getElementsByTagName('embed');
+      if (xunlei) {
+        for (var i = 0; i < xunlei.length; i ++) {
+          console.log(i, xunlei[i], 444)
+          xunlei[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+stages:
+  - deploy
+  - rollback
+
+
+deploy_develop:
+  stage: deploy
+  only:
+    - develop
+  tags:
+    - ti-gre-dev
+  script:
+    - k8s-deploy c-dev ti-gre-dev $(date "+%Y%m%d%H%M%S")-${CI_COMMIT_SHA:0:6} Dockerfile-dev
+
+# 部署test环境
+deploy_test:
+  stage: deploy
+  only:
+    - master
+  tags:
+    - ti-gre 
+  script:
+    - kubernetes-deploy c-test ti-gre-test $(date "+%Y%m%d%H%M%S")-${CI_COMMIT_SHA:0:6} Dockerfile-test
+  when: manual
+
+
+# 部署production环境
+deploy_production:
+  stage: deploy
+  only:
+    - master
+  tags:
+    - ti-gre 
+  script:
+    - kubernetes-deploy c-production ti-gre-production $(date "+%Y%m%d%H%M%S")-${CI_COMMIT_SHA:0:6} Dockerfile-production
+  when: manual
+
+
+# 线上回滚
+deploy_production_rollback:
+  stage: rollback
+  only:
+    - master
+  tags:
+    - ti-gre 
+  script:
+    - kubernetes-rollback c-production ti-gre-production
+  when: manual

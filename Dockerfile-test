@@ -1,0 +1,17 @@
+FROM harbor.smartstudy.com/public/node:8.9.1
+
+ENV NODE_ENV test
+
+ADD --chown=node:node . /home/node/code
+
+USER node
+RUN cd /home/node/code \
+&& cp -a src/common/config.test.example.js src/common/config.js \
+&& cnpm install \
+&& npm run build
+
+WORKDIR /home/node/code
+
+EXPOSE 8080
+
+CMD ["node", "server/index.js"]
